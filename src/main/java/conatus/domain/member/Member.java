@@ -2,19 +2,17 @@ package conatus.domain.member;
 
 
 import conatus.domain.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 public class Member extends BaseTimeEntity {
     @Id
@@ -28,13 +26,12 @@ public class Member extends BaseTimeEntity {
     private Long groupId;
 
 
-//    @Builder
-//    public Member(Long userId, Long groupId, Long postId, String keyword, String category){
-//        this.userId = userId;
-//        this.groupId = groupId;
-//        this.postId = postId;
-//        this.keyword = keyword;
-//        this.category = category;
-//    }
+    @Builder
+    public Member(Long groupId, Long userId,  String nickname, Boolean isLeader){
+        this.userId = userId;
+        this.groupId = groupId;
+        this.nickname = nickname;
+        this.isLeader = isLeader;
+    }
 
 }
