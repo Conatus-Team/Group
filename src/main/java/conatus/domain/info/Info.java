@@ -1,27 +1,28 @@
-package conatus.domain;
+package conatus.domain.info;
 
 import conatus.GroupApplication;
-import conatus.domain.GroupDetailShown;
-import conatus.domain.GroupJoined;
-import conatus.domain.GroupQuitted;
-import conatus.domain.GroupSearched;
-import conatus.domain.PostAccessCounted;
-import conatus.domain.RecommendedGroupUpdated;
-import java.util.Date;
-import java.util.List;
+
 import javax.persistence.*;
+
+import conatus.domain.history.GroupDetailShown;
+import conatus.domain.history.GroupSearched;
+import conatus.domain.history.PostAccessCounted;
+import conatus.domain.member.GroupJoined;
+import conatus.domain.member.GroupQuitted;
+import conatus.domain.recommend.GroupRecommended;
+import conatus.domain.recommend.RecommendedGroupUpdated;
 import lombok.Data;
 
 @Entity
-@Table(name = "Group_table")
+@Table(name = "info")
 @Data
-public class Group {
+public class Info {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long groupId;
 
-    private Long memberCount;
+    private Integer memberCount;
 
     private String category;
 
@@ -54,9 +55,9 @@ public class Group {
     @PreRemove
     public void onPreRemove() {}
 
-    public static GroupRepository repository() {
-        GroupRepository groupRepository = GroupApplication.applicationContext.getBean(
-            GroupRepository.class
+    public static InfoRepository repository() {
+        InfoRepository groupRepository = GroupApplication.applicationContext.getBean(
+            InfoRepository.class
         );
         return groupRepository;
     }

@@ -1,8 +1,7 @@
-package conatus.domain;
+package conatus.domain.recommend;
 
-import conatus.domain.*;
+import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;
-import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -10,7 +9,7 @@ public class RecommendedGroupUpdated extends AbstractEvent {
 
     private Long id;
 
-    public RecommendedGroupUpdated(Group aggregate) {
+    public RecommendedGroupUpdated(Info aggregate) {
         super(aggregate);
     }
 

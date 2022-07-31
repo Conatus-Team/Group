@@ -1,8 +1,7 @@
-package conatus.domain;
+package conatus.domain.member;
 
-import conatus.domain.*;
+import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;
-import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,7 @@ public class GroupQuitted extends AbstractEvent {
     private Long groupId;
     private Long userId;
 
-    public GroupQuitted(Group aggregate) {
+    public GroupQuitted(Info aggregate) {
         super(aggregate);
     }
 

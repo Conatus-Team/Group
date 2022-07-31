@@ -1,4 +1,4 @@
-package conatus.domain;
+package conatus.domain.recommend;
 
 import conatus.domain.*;
 import conatus.infra.AbstractEvent;

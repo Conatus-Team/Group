@@ -1,8 +1,7 @@
-package conatus.domain;
+package conatus.domain.history;
 
-import conatus.domain.*;
+import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;
-import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -13,7 +12,7 @@ public class PostAccessCounted extends AbstractEvent {
     private Long userId;
     private Integer postAccessCount;
 
-    public PostAccessCounted(Group aggregate) {
+    public PostAccessCounted(Info aggregate) {
         super(aggregate);
     }
 

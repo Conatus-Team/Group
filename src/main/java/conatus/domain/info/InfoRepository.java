@@ -1,9 +1,9 @@
-package conatus.domain;
+package conatus.domain.info;
 
-import conatus.domain.*;
+import conatus.domain.info.Info;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "groups", path = "groups")
-public interface GroupRepository
-    extends PagingAndSortingRepository<Group, Long> {}
+public interface InfoRepository
+    extends PagingAndSortingRepository<Info, Long> {}

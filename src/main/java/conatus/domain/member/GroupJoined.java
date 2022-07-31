@@ -1,8 +1,7 @@
-package conatus.domain;
+package conatus.domain.member;
 
-import conatus.domain.*;
+import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;
-import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -13,7 +12,7 @@ public class GroupJoined extends AbstractEvent {
     private Long userId;
     private String category;
 
-    public GroupJoined(Group aggregate) {
+    public GroupJoined(Info aggregate) {
         super(aggregate);
     }
 
