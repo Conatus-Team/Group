@@ -3,9 +3,12 @@ package conatus.domain.like;
 
 import conatus.domain.BaseTimeEntity;
 import conatus.domain.user.User;
+import conatus.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -15,6 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "likes")
 public class Like extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,13 +31,12 @@ public class Like extends BaseTimeEntity {
 
 
 
-//    @Builder
-//    public Member(Long userId, Long groupId, Long postId, String keyword, String category){
-//        this.userId = userId;
-//        this.groupId = groupId;
-//        this.postId = postId;
-//        this.keyword = keyword;
-//        this.category = category;
-//    }
+    @Builder
+    public Like(Long groupId, User user){
+
+        this.user = user;
+        this.groupId = groupId;
+
+    }
 
 }
