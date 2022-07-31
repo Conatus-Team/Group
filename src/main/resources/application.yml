@@ -4,13 +4,18 @@ server:
 ---
 
 spring:
+#  SPRING_SESSION table doesn't exist 오류
+#  https://stackoverflow.com/questions/49964443/java-spring-jdbc-spring-session-table-doesnt-exist
+  session:
+    jdbc:
+      initialize-schema: always
   profiles: default
   jpa:
 #    database-platform: org.hibernate.dialect.H2Dialect
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
-#      ddl-auto: update
-      ddl-auto: create
+      ddl-auto: update
+#      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
