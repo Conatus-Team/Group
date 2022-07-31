@@ -1,52 +1,52 @@
 package conatus.domain.info;
 
-import conatus.GroupApplication;
-
 import javax.persistence.*;
 
-import conatus.domain.history.event.GroupDetailShown;
-import conatus.domain.history.event.GroupSearched;
-import conatus.domain.history.event.PostAccessCounted;
-import conatus.domain.member.event.GroupJoined;
-import conatus.domain.member.event.GroupQuitted;
+import conatus.domain.BaseTimeEntity;
 import conatus.domain.recommend.event.GroupRecommended;
-import conatus.domain.recommend.event.RecommendedGroupUpdated;
-import lombok.Data;
+import lombok.*;
 
+@NoArgsConstructor
+@Data
+@AllArgsConstructor
+@Setter
 @Entity
 @Table(name = "info")
-@Data
-public class Info {
+public class Info extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long groupId;
+    private Long id;
 
-    private Integer memberCount;
-
+    private String name;
+    private Long leaderId;
+    @Column(columnDefinition = "TEXT")
+    private String explanation;
     private String category;
+    private Integer memberCount = 1;
+    private Integer likeCount = 0;
 
     @PostPersist
     public void onPostPersist() {
-        GroupJoined groupJoined = new GroupJoined(this);
-        groupJoined.publishAfterCommit();
-
-        GroupQuitted groupQuitted = new GroupQuitted(this);
-        groupQuitted.publishAfterCommit();
-
-        PostAccessCounted postAccessCounted = new PostAccessCounted(this);
-        postAccessCounted.publishAfterCommit();
-
-        GroupSearched groupSearched = new GroupSearched(this);
-        groupSearched.publishAfterCommit();
-
-        GroupDetailShown groupDetailShown = new GroupDetailShown(this);
-        groupDetailShown.publishAfterCommit();
-
-        RecommendedGroupUpdated recommendedGroupUpdated = new RecommendedGroupUpdated(
-            this
-        );
-        recommendedGroupUpdated.publishAfterCommit();
+//        GroupJoined groupJoined = new GroupJoined(this);
+//        groupJoined.publishAfterCommit();
+//
+//        GroupQuitted groupQuitted = new GroupQuitted(this);
+//        groupQuitted.publishAfterCommit();
+//
+//        PostAccessCounted postAccessCounted = new PostAccessCounted(this);
+//        postAccessCounted.publishAfterCommit();
+//
+//        GroupSearched groupSearched = new GroupSearched(this);
+//        groupSearched.publishAfterCommit();
+//
+//        GroupDetailShown groupDetailShown = new GroupDetailShown(this);
+//        groupDetailShown.publishAfterCommit();
+//
+//        RecommendedGroupUpdated recommendedGroupUpdated = new RecommendedGroupUpdated(
+//            this
+//        );
+//        recommendedGroupUpdated.publishAfterCommit();
     }
 
     @PrePersist
@@ -55,12 +55,12 @@ public class Info {
     @PreRemove
     public void onPreRemove() {}
 
-    public static InfoRepository repository() {
-        InfoRepository groupRepository = GroupApplication.applicationContext.getBean(
-            InfoRepository.class
-        );
-        return groupRepository;
-    }
+//    public static InfoRepository repository() {
+//        InfoRepository groupRepository = GroupApplication.applicationContext.getBean(
+//            InfoRepository.class
+//        );
+//        return groupRepository;
+//    }
 
     public void joinGroup() {}
 
