@@ -1,4 +1,4 @@
-package conatus.domain.member;
+package conatus.domain.member.event;
 
 import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;

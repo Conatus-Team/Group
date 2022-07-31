@@ -1,22 +1,21 @@
-package conatus.domain.history;
+package conatus.domain.member.event;
 
 import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;
 import lombok.Data;
 
 @Data
-public class PostAccessCounted extends AbstractEvent {
+public class GroupQuitted extends AbstractEvent {
 
     private Long id;
     private Long groupId;
     private Long userId;
-    private Integer postAccessCount;
 
-    public PostAccessCounted(Info aggregate) {
+    public GroupQuitted(Info aggregate) {
         super(aggregate);
     }
 
-    public PostAccessCounted() {
+    public GroupQuitted() {
         super();
     }
     // keep

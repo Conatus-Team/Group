@@ -2,14 +2,14 @@ package conatus.domain.posts;
 
 
 import conatus.domain.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import conatus.domain.user.User;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Posts extends BaseTimeEntity {
     @Id
@@ -22,12 +22,18 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private String author;
+    @ManyToOne
+    private User user;
+
+    private String author = user.getNickname();
+
+    private Integer Like = 0;
 
     @Builder
-    public Posts(String title, String content, String author){
+    public Posts(String title, String content, User user, String author){
         this.title = title;
         this.content = content;
+        this.user = user;
         this.author = author;
     }
 

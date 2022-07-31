@@ -1,4 +1,4 @@
-package conatus.domain.history;
+package conatus.domain.history.event;
 
 import conatus.domain.info.Info;
 import conatus.infra.AbstractEvent;

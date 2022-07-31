@@ -4,13 +4,13 @@ import conatus.GroupApplication;
 
 import javax.persistence.*;
 
-import conatus.domain.history.GroupDetailShown;
-import conatus.domain.history.GroupSearched;
-import conatus.domain.history.PostAccessCounted;
-import conatus.domain.member.GroupJoined;
-import conatus.domain.member.GroupQuitted;
-import conatus.domain.recommend.GroupRecommended;
-import conatus.domain.recommend.RecommendedGroupUpdated;
+import conatus.domain.history.event.GroupDetailShown;
+import conatus.domain.history.event.GroupSearched;
+import conatus.domain.history.event.PostAccessCounted;
+import conatus.domain.member.event.GroupJoined;
+import conatus.domain.member.event.GroupQuitted;
+import conatus.domain.recommend.event.GroupRecommended;
+import conatus.domain.recommend.event.RecommendedGroupUpdated;
 import lombok.Data;
 
 @Entity
