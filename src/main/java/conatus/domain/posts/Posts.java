@@ -16,7 +16,7 @@ public class Posts extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 500, nullable = false)
+    @Column(nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -25,9 +25,9 @@ public class Posts extends BaseTimeEntity {
     @ManyToOne
     private User user;
 
-    private String author = user.getNickname();
+    private String author;
 
-    private Integer Like = 0;
+    private Integer likeCount = 0;
 
     @Builder
     public Posts(String title, String content, User user, String author){

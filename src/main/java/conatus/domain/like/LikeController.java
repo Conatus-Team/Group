@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class GalleryController {
+public class LikeController {
 
 //    private final PostsService postsService;
 //

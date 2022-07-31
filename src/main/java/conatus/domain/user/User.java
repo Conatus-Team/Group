@@ -26,10 +26,10 @@ public class User extends BaseTimeEntity {
     private String nickname;
 
     @OneToMany(mappedBy = "user")
-    private List<Like> like;
+    private List<Like> likeList;
 
-    @OneToMany(mappedBy = "user")
-    private List<Gallery> galleryList;
+//    @OneToMany(mappedBy = "user")
+//    private List<Gallery> galleryList;
 
     @Builder
     public User(Long userId, String nickname){

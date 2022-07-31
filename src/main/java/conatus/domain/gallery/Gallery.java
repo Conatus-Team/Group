@@ -23,7 +23,7 @@ public class Gallery extends BaseTimeEntity {
 
     @ManyToOne()
     private User user;
-    private String author = user.getNickname();
+    private String author;
     private String title;
 
 
