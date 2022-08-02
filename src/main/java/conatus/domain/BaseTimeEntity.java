@@ -29,14 +29,14 @@ public abstract class BaseTimeEntity {
     private void beforeSaving() {
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
-        System.out.println("createdDate = " + createdDate);
+//        System.out.println("createdDate = " + createdDate);
 //        createdBy = Thread.currentThread().getName(); //todo: put your logic here
     }
 
     @PreUpdate
     private void beforeUpdating() {
         this.updatedDate = LocalDateTime.now();
-        System.out.println("updatedDate = " + updatedDate);
+//        System.out.println("updatedDate = " + updatedDate);
 //        modifiedBy = Thread.currentThread().getName(); //todo: put your logic here
     }
 

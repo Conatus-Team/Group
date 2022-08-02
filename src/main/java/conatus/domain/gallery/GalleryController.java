@@ -1,13 +1,13 @@
 package conatus.domain.gallery;
 
+import conatus.domain.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
 public class GalleryController {
-
-//    private final PostsService postsService;
+//    private final MemberService memberService;
 //
 //    @PostMapping("/api/v1/posts")
 //    public Long save(@RequestBody PostsSaveRequestDto requestDto){
