@@ -21,7 +21,7 @@ public class History extends BaseTimeEntity {
     private Long groupId = (long) 0;
     private Integer count = 1;
     private Long postId = (long) 0;
-    private String keyword;
+    private String keyword = "";
     private String category;
     private Boolean isLiked = Boolean.FALSE;
     private Boolean isClicked = Boolean.FALSE;
