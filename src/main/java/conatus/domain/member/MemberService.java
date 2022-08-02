@@ -26,11 +26,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long save(JoinDto joinDto)
+    public Member save(JoinDto joinDto)
     {
         Optional<Member> existMember = memberRepository.findByGroupIdAndUserId(joinDto.getGroupId(), joinDto.getUserId());
         if (existMember.isPresent()){
-            return existMember.get().getId();
+            return existMember.get();
         }
         User user = userRepository.findByUserId(joinDto.getUserId());
         Member memberObj = new Member(joinDto.getGroupId(), joinDto.getUserId(), user.getNickname(), Boolean.FALSE);
@@ -41,6 +41,6 @@ public class MemberService {
         infoRepository.save(infoObj);
 
         // 멤버 저장하기
-        return memberRepository.save(memberObj).getId();
+        return memberRepository.save(memberObj);
     }
 }
