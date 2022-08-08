@@ -1,6 +1,5 @@
 package conatus.domain.member;
 
-import conatus.domain.info.InfoService;
 import conatus.domain.member.dto.JoinDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +12,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/group/join")
-    public Long save(@RequestBody JoinDto joinDto){
+    public Member save(@RequestBody JoinDto joinDto){
 
         return memberService.save(joinDto);
     }
