@@ -1,9 +1,5 @@
 package conatus.domain.history;
 
-import conatus.domain.posts.PostsService;
-import conatus.domain.posts.dto.PostsResponseDto;
-import conatus.domain.posts.dto.PostsSaveRequestDto;
-import conatus.domain.posts.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
