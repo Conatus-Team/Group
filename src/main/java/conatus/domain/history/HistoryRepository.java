@@ -18,4 +18,6 @@ public interface HistoryRepository
     List<History> findByUserIdAndUpdatedTimeBetween(Long userId, LocalDateTime start, LocalDateTime end);
 
     List<History> findByIdGreaterThan(Long sentId);
+    
+    Optional<History> findByUserIdAndKeyword(Long userId, String keyword);
 }

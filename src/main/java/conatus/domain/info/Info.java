@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import conatus.domain.BaseTimeEntity;
 import conatus.domain.recommend.event.GroupRecommended;
+import conatus.domain.user.User;
 import lombok.*;
 
 @NoArgsConstructor
@@ -28,6 +29,16 @@ public class Info extends BaseTimeEntity {
 
     private String thumbnail;
 
+    
+    @Builder
+    public Info(String name, Long leaderId, String explanation, String category, String thumbnail){
+        this.name = name;
+        this.leaderId = leaderId;
+        this.explanation = explanation;
+        this.category = category;
+        this.thumbnail = thumbnail;
+    }
+    
     @PostPersist
     public void onPostPersist() {
 //        GroupJoined groupJoined = new GroupJoined(this);
