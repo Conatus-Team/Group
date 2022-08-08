@@ -26,6 +26,8 @@ public class Info extends BaseTimeEntity {
     private Integer memberCount = 1;
     private Integer likeCount = 0;
 
+    private String thumbnail;
+
     @PostPersist
     public void onPostPersist() {
 //        GroupJoined groupJoined = new GroupJoined(this);
