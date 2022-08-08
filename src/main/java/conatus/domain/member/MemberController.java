@@ -13,7 +13,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/group/join")
-    public Long save(@RequestBody JoinDto joinDto){
+    public Member save(@RequestBody JoinDto joinDto){
 
         return memberService.save(joinDto);
     }

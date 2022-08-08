@@ -37,19 +37,19 @@ public class PolicyHandler {
     // 유저 회원가입 이벤트
     // 유저 등록
     @StreamListener(KafkaProcessor.INPUT)
-    public User postUser(@Payload SignedUp signedUp) {
+    public void postUser(@Payload SignedUp signedUp) {
         if (!signedUp.validate()) throw new RuntimeException();
-        return userService.postUser(signedUp);
+        userService.postUser(signedUp);
 
     }
 
     // 유저 그룹 가입 이벤트
     // 유저 그룹 채팅방 가입
     @StreamListener(KafkaProcessor.INPUT)
-    public Member postUserChattingRoom(@Payload GroupJoined groupJoined) {
+    public void postUserChattingRoom(@Payload GroupJoined groupJoined) {
         if (!groupJoined.validate()) throw new RuntimeException();
         JoinDto joinDto = new JoinDto(groupJoined.getGroupId(), groupJoined.getUserId());
-        return memberService.save(joinDto);
+         memberService.save(joinDto);
 
     }
 
