@@ -36,6 +36,17 @@ public class History extends BaseTimeEntity {
         this.isLiked = isLiked;
         this.isClicked = isClicked;
     }
+    
+    @Builder
+    public History(Long userId, String keyword){
+        this.userId = userId;
+        this.groupId = (long) 0;
+        this.postId = (long) 0;
+        this.keyword = keyword;
+        this.category = "";
+        this.isLiked = false;
+        this.isClicked = false;
+    }
 
     public void updateCount(){
         this.count += 1;

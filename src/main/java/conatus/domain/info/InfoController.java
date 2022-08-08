@@ -1,5 +1,7 @@
 package conatus.domain.info;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import conatus.domain.info.dto.InfoDto;
@@ -21,6 +23,11 @@ public class InfoController {
     @GetMapping("/{id}")
     public InfoDto getById(@PathVariable Long id) {
         return infoService.getById(id);
+    }
+    
+    @PostMapping("/search")
+    public List<InfoDto> searchInfo(String keyword) {
+        return infoService.search(keyword);
     }
 
 //    @RequestMapping(
