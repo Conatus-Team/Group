@@ -22,19 +22,22 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @ManyToOne
-    private User user;
+    private Long userId;
+
+    private Long groupId;
 
     private String author;
 
     private Integer likeCount = 0;
 
     @Builder
-    public Posts(String title, String content, User user, String author){
+    public Posts(String title, String content, Long userId, String author, Long groupId){
         this.title = title;
         this.content = content;
-        this.user = user;
+        this.userId = userId;
         this.author = author;
+        this.groupId = groupId;
+
     }
 
     public void update(String title, String content){

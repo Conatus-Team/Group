@@ -3,7 +3,6 @@ package conatus.domain.posts;
 
 import conatus.domain.posts.dto.PostsResponseDto;
 import conatus.domain.posts.dto.PostsSaveRequestDto;
-import conatus.domain.posts.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto){
+    public Long update(Long id, PostsSaveRequestDto requestDto){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         posts.update(requestDto.getTitle(), requestDto.getContent());

@@ -27,13 +27,16 @@ public class Info extends BaseTimeEntity {
     private Integer memberCount = 1;
     private Integer likeCount = 0;
 
+    private String thumbnail;
+
     
     @Builder
-    public Info(String name, Long leaderId, String explanation, String category){
+    public Info(String name, Long leaderId, String explanation, String category, String thumbnail){
         this.name = name;
         this.leaderId = leaderId;
         this.explanation = explanation;
         this.category = category;
+        this.thumbnail = thumbnail;
     }
     
     @PostPersist

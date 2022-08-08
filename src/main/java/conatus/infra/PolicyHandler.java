@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -37,6 +38,7 @@ public class PolicyHandler {
     // 유저 회원가입 이벤트
     // 유저 등록
     @StreamListener(KafkaProcessor.INPUT)
+//    @SendTo(KafkaProcessor.OUTPUT)
     public void postUser(@Payload SignedUp signedUp) {
         if (!signedUp.validate()) throw new RuntimeException();
         userService.postUser(signedUp);
@@ -49,7 +51,7 @@ public class PolicyHandler {
     public void postUserChattingRoom(@Payload GroupJoined groupJoined) {
         if (!groupJoined.validate()) throw new RuntimeException();
         JoinDto joinDto = new JoinDto(groupJoined.getGroupId(), groupJoined.getUserId());
-         memberService.save(joinDto);
+        memberService.save(joinDto);
 
     }
 

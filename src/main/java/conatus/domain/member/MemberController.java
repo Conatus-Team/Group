@@ -1,6 +1,5 @@
 package conatus.domain.member;
 
-import conatus.domain.info.InfoService;
 import conatus.domain.member.dto.JoinDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
