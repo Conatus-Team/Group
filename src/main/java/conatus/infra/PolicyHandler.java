@@ -51,7 +51,7 @@ public class PolicyHandler {
     public void postUserChattingRoom(@Payload GroupJoined groupJoined) {
         if (!groupJoined.validate()) throw new RuntimeException();
         JoinDto joinDto = new JoinDto(groupJoined.getGroupId(), groupJoined.getUserId());
-        memberService.save(joinDto);
+        return memberService.save(joinDto);
 
     }
 
