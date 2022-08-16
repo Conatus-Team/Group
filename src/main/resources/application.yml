@@ -1,0 +1,85 @@
+server:
+  port: 8080
+
+---
+
+spring:
+#  SPRING_SESSION table doesn't exist 오류
+#  https://stackoverflow.com/questions/49964443/java-spring-jdbc-spring-session-table-doesnt-exist
+  session:
+    jdbc:
+      initialize-schema: always
+  profiles: default
+  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+#      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  # DB 연결
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/group?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: Sweetime010!
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Group
+          destination: conatus
+          contentType: application/json
+        event-out:
+          destination: conatus
+          contentType: application/json
+
+logging:
+  level:
+    org.hibernate.type: trace
+    org.springframework.cloud: debug
+
+
+server:
+  port: 8083
+---
+
+spring:
+  profiles: docker
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Group
+          destination: conatus
+          contentType: application/json
+        event-out:
+          destination: conatus
+          contentType: application/json
+
+
