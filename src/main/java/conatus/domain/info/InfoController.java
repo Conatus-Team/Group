@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import conatus.domain.info.dto.CreateGroupDto;
 import conatus.domain.info.dto.InfoDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,5 +32,12 @@ public class InfoController {
         return infoService.search(keyword);
     }
 
+    @ApiOperation(value = "그룹 생성")
+    @PostMapping("/create")
+    public InfoDto create(@RequestHeader(value="userId") Long userId,
+                                 @RequestBody CreateGroupDto createGroupDto) {
 
+            return infoService.create(userId, createGroupDto);
+
+    }
 }
