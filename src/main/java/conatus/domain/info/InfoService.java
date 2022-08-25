@@ -13,6 +13,7 @@ import conatus.domain.user.User;
 import conatus.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Vector;
@@ -99,5 +100,15 @@ public class InfoService {
 
         return infoDto;
 
+    }
+
+    @Transactional
+    public List<Info> getGroupByUserId(Long userId){
+        List<Member> member = memberRepository.findByUserId(userId);
+        List<Long> groupIdList = member.stream().map(x-> x.getGroupId()).collect(Collectors.toList());
+//        List<Info> infoList = new ArrayList<Info> ();
+
+        List<Info> infoList = groupIdList.stream().map(x-> infoRepository.findById(x).get()).collect(Collectors.toList());
+        return infoList;
     }
 }

@@ -34,10 +34,20 @@ public class InfoController {
 
     @ApiOperation(value = "그룹 생성")
     @PostMapping("/create")
-    public InfoDto create(@RequestHeader(value="userId") Long userId,
+    public InfoDto create(@RequestHeader(value="Authorization") Long userId,
                                  @RequestBody CreateGroupDto createGroupDto) {
 
             return infoService.create(userId, createGroupDto);
 
     }
+
+    @ApiOperation(value = "내가 속한 그룹 보기")
+    @GetMapping("/my")
+    public List<Info> getGroupByUserId(@RequestHeader(value="Authorization") Long userId) {
+
+        return infoService.getGroupByUserId(userId);
+
+    }
+
+
 }
