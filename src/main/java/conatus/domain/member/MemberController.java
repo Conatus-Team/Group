@@ -4,6 +4,7 @@ import conatus.domain.member.dto.JoinDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -12,8 +13,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/group/join")
-    public Member save(@RequestBody JoinDto joinDto){
-
+    public Member save(@RequestHeader(value="Authorization") Long userId,
+                       @RequestBody JoinDto joinDto){
+        joinDto.setUserId(userId);
         return memberService.save(joinDto);
     }
 //    private final PostsService postsService;
