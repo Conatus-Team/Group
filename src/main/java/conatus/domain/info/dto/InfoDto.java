@@ -12,6 +12,7 @@ public class InfoDto {
     private String category;
     private Integer memberCount;
     private Integer likeCount;
+    private String thumbnail;
 
     public InfoDto(Info info){
         this.groupId = info.getId();
@@ -21,6 +22,7 @@ public class InfoDto {
         this.category = info.getCategory();
         this.memberCount = info.getMemberCount();
         this.likeCount = info.getLikeCount();
+        this.thumbnail = info.getThumbnail();
 
     }
 }
