@@ -22,16 +22,13 @@ public class InfoController {
 
     @ApiOperation(value = "그룹 디테일")
     @GetMapping("/{groupId}")
-    public InfoDto getById(@RequestHeader Long userId, @PathVariable Long groupId) {
+    public InfoDto getById(@RequestHeader(value="Authorization") Long userId, @PathVariable Long groupId) {
         return infoService.getById(userId, groupId);
-
-
-
     }
 
     @ApiOperation(value = "그룹 검색")
     @PostMapping("/search")
-    public List<InfoDto> searchInfo(@RequestHeader Long userId, String keyword) {
+    public List<InfoDto> searchInfo(@RequestHeader(value="Authorization") Long userId, String keyword) {
         return infoService.search(userId, keyword);
     }
 
