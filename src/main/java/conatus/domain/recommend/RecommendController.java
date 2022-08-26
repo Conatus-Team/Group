@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import conatus.domain.info.dto.InfoDto;
@@ -22,7 +23,7 @@ public class RecommendController {
 //    }
 //
     @GetMapping("/group/recommend")
-    public List<InfoDto> getByUserId(@PathVariable Long userId){
+    public List<InfoDto> getByUserId(@RequestHeader(value="Authorization") Long userId){
         return recommendService.getInfoByUserId(userId);
     }
 //    @GetMapping("/api/v1/posts/{id}")

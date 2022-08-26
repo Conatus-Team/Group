@@ -28,11 +28,16 @@ public class MemberService {
     @Transactional
     public Member save(JoinDto joinDto)
     {
+
+        // 이미 있는 멤버인지
         Optional<Member> existMember = memberRepository.findByGroupIdAndUserId(joinDto.getGroupId(), joinDto.getUserId());
         if (existMember.isPresent()){
             return existMember.get();
         }
+        
+        // 유저 찾기
         User user = userRepository.findByUserId(joinDto.getUserId());
+        // 멤버 오브젝트 만들기
         Member memberObj = new Member(joinDto.getGroupId(), joinDto.getUserId(), user.getNickname(), Boolean.FALSE);
 
         // 그룹 member 개수 올리기
