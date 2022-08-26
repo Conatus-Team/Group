@@ -19,8 +19,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("Moine - Chatting API")
-                .description("Moine - Chatting API Docs").build();
+        return new ApiInfoBuilder().title("Moine - Group API")
+                .description("Moine - Group API Docs").build();
     }
 
     @Bean

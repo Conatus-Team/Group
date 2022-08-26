@@ -17,14 +17,18 @@ public class InfoController {
     private final InfoRepository groupRepository;
     private final InfoService infoService;
 
-    @GetMapping("/{id}")
-    public InfoDto getById(@PathVariable Long id) {
-        return infoService.getById(id);
+
+    @GetMapping("/{groupId}")
+    public InfoDto getById(@RequestHeader Long userId, @PathVariable Long groupId) {
+        return infoService.getById(userId, groupId);
+
+
+
     }
     
     @PostMapping("/search")
-    public List<InfoDto> searchInfo(String keyword) {
-        return infoService.search(keyword);
+    public List<InfoDto> searchInfo(@RequestHeader Long userId, String keyword) {
+        return infoService.search(userId, keyword);
     }
 
 

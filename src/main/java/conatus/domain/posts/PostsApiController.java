@@ -12,16 +12,17 @@ public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/group/post/create")
-    public Long save(@RequestBody PostsSaveRequestDto requestDto){
-        return postsService.save(requestDto);
+    public Long save(@RequestHeader Long userId, @RequestBody PostsSaveRequestDto requestDto){
+        return postsService.save(userId, requestDto);
     }
 
     @PutMapping("/group/post/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsSaveRequestDto requestDto){
-        return postsService.update(id, requestDto);
+    public Long update(@RequestHeader Long userId, @PathVariable Long id, @RequestBody PostsSaveRequestDto requestDto){
+        return postsService.update(userId, id, requestDto);
     }
     @GetMapping("/group/post/{id}")
-    public PostsResponseDto findById(@PathVariable Long id){
-        return postsService.findById(id);
+    public PostsResponseDto findById(@RequestHeader Long userId, @PathVariable Long id){
+//        Long userId = (long) 1;
+        return postsService.findById(userId, id);
     }
 }

@@ -1,21 +1,38 @@
 package conatus.domain.member;
 
 import conatus.domain.member.dto.JoinDto;
+import conatus.domain.member.event.GroupJoined;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping(value = "/group")
+@Transactional
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/group/join")
+    @PostMapping("/join")
     public Member save(@RequestBody JoinDto joinDto){
+        Member member = memberService.save(joinDto);
 
-        return memberService.save(joinDto);
+        // *** 카프카 이벤트 발행 ***
+        // Chatting, RecommendSystem 서버로 어떤 유저가 어느 그룹에 가입했는지 발행
+        GroupJoined groupJoined = new GroupJoined(member);
+        groupJoined.publish();
+
+        return member;
+
+
     }
+
+
+    // TODO : 그룹 탈퇴
+
+
+
 //    private final PostsService postsService;
 //
 //    @PostMapping("/api/v1/posts")

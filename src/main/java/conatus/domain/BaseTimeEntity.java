@@ -30,14 +30,14 @@ public abstract class BaseTimeEntity {
         this.createdTime = LocalDateTime.now();
         this.updatedTime = LocalDateTime.now();
 //        System.out.println("createdDate = " + createdDate);
-//        createdBy = Thread.currentThread().getName(); //todo: put your logic here
+//        createdBy = Thread.currentThread().getName();
     }
 
     @PreUpdate
     private void beforeUpdating() {
         this.updatedTime = LocalDateTime.now();
 //        System.out.println("updatedDate = " + updatedDate);
-//        modifiedBy = Thread.currentThread().getName(); //todo: put your logic here
+//        modifiedBy = Thread.currentThread().getName();
     }
 
 

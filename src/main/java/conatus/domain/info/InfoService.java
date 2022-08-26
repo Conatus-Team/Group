@@ -26,20 +26,27 @@ public class InfoService {
     private final InfoRepository infoRepository;
 
     @Transactional
-    public InfoDto getById(Long id)
+    public InfoDto getById(Long userId, Long groupId)
     {
-        Info info = infoRepository.findById(id).get();
+        Info info = infoRepository.findById(groupId).get();
         InfoDto infoDto = new InfoDto(info);
 
-        // 유저의 조회 기록 남기기 (구현해야함)
-
+        // 유저의 조회 기록 남기기
+        Optional<History> foundHistory = historyRepository.findByUserIdAndGroupId(userId, groupId);
+        if (foundHistory.isPresent()) {
+            foundHistory.get().updateCount();
+            historyRepository.save(foundHistory.get());
+        }else {
+            History history = new History(userId, groupId, info.getCategory());
+            historyRepository.save(history);
+        }
 
         return infoDto;
     }
     
     // 검색 결과
     @Transactional
-    public List<InfoDto> search(String keyword)
+    public List<InfoDto> search(Long userId, String keyword)
     {
         List<Info> info = infoRepository.findByNameContainingOrCategoryContaining(keyword, keyword);
         // 찾은 것이 없을 경우
@@ -50,10 +57,7 @@ public class InfoService {
 
         }
         
-        // 유저의 조회 기록 남기기 (userId 부분 수정 필요)
-
-        Long userId = (long) 1;
-        
+        // 유저의 조회 기록 남기기
         Optional<History> foundHistory = historyRepository.findByUserIdAndKeyword(userId, keyword);
         if (foundHistory.isPresent()) {
         	foundHistory.get().updateCount();
