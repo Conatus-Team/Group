@@ -14,19 +14,23 @@ import javax.transaction.Transactional;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/group/join")
-    public Member save(@RequestHeader(value="Authorization") Long userId,
-                       @RequestBody JoinDto joinDto){
-        
-        joinDto.setUserId(userId);
-        Member member = memberService.save(joinDto);
+    @PostMapping("/join/{groupId}")
+    public boolean save(@RequestHeader(value="Authorization") Long userId,
+                       @PathVariable Long groupId){
+
+        Member member = memberService.save(userId, groupId);
+        if(member == null) {
+            // 이미 존재하는 유저
+            return true;
+        }
+
         // *** 카프카 이벤트 발행 ***
         // Chatting, RecommendSystem 서버로 어떤 유저가 어느 그룹에 가입했는지 발행
         GroupJoined groupJoined = new GroupJoined(member);
         groupJoined.publish();
 
-        return memberService.save(joinDto);
-        
+        return false;
+
     }
 
 
