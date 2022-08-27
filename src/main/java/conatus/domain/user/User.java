@@ -21,8 +21,9 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean isDeleted = Boolean.FALSE;
     private Long userId;
+    private String userName;
+    private Boolean isDeleted = Boolean.FALSE;
     private String nickname;
 
     @OneToMany(mappedBy = "user")
@@ -32,9 +33,10 @@ public class User extends BaseTimeEntity {
 //    private List<Gallery> galleryList;
 
     @Builder
-    public User(Long userId, String nickname){
+    public User(Long userId, String nickname, String userName){
         this.userId = userId;
         this.nickname = nickname;
+        this.userName = userName;
     }
 
 }

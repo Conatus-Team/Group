@@ -14,7 +14,10 @@ public class SignedUp extends AbstractEvent {
     private Boolean gender;
     private Date birth;
     private String location;
-    private String nickname;
+    private String userNickname;
+
+    private String userName;
+
 
     public SignedUp(User aggregate) {
         super(aggregate);
@@ -29,7 +32,7 @@ public class SignedUp extends AbstractEvent {
     public User toEntity(){
         return User.builder()
                 .userId(userId)
-                .nickname(nickname)
+                .nickname(userNickname)
                 .build();
     }
 
