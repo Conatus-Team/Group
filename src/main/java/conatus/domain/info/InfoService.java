@@ -115,4 +115,7 @@ public class InfoService {
         List<Info> infoList = groupIdList.stream().map(x-> infoRepository.findById(x).get()).collect(Collectors.toList());
         return infoList;
     }
+
+
+
 }

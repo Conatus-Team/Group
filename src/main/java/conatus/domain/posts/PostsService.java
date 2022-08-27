@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -56,6 +58,17 @@ public class PostsService {
 
         return new PostsResponseDto(entity);
     }
+
+    public List<PostsResponseDto> findAllPosts(Long groupId){
+        List<Posts> posts= postsRepository.findByGroupId(groupId);
+        List<PostsResponseDto> results = new ArrayList<>();
+        for (Posts post : posts){
+            results.add(new PostsResponseDto(post));
+        }
+
+        return results;
+    }
+
 
 }
 
