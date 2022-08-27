@@ -20,4 +20,8 @@ public interface HistoryRepository
     List<History> findByIdGreaterThan(Long sentId);
     
     Optional<History> findByUserIdAndKeyword(Long userId, String keyword);
+
+    Optional<History> findByUserIdAndPostId(Long userId, Long postId);
+
+    Optional<History> findByUserIdAndGroupId(Long userId, Long groupId);
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import conatus.domain.history.History;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,10 +52,10 @@ class GroupApplicationTests {
 	
 //	@Test
 	public void searchHistoryTest() {
-		User user = new User((long)1, "테스트 유저 닉네임");
+		User user = new User((long)1, "테스트 유저 닉네임", "네임");
 		this.userRepository.save(user);
 		
-		List<InfoDto> noFoundInfo = infoService.search("키워드");
+		List<InfoDto> noFoundInfo = infoService.search(user.getUserId(),"키워드");
 		assertEquals(0, noFoundInfo.size());
 		
 		Info info = new Info("그룹명_키워드", (long)1, "그룹설명", "그룹카테고리", "썸네일");
@@ -67,10 +68,16 @@ class GroupApplicationTests {
 		infoRepository.save(info4);
 		
 		
-		List<InfoDto> foundInfo = infoService.search("키워드");
+		List<InfoDto> foundInfo = infoService.search(user.getUserId(), "키워드");
 		assertEquals(3, foundInfo.size());
 	}
-	
+
+
+	@Test
+	public void history(){
+		historyService.publishAll();
+	}
+
 //	@Test
 //	public void recommendTest() {
 //		User user = new User((long)2, "테스트 유저2");

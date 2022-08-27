@@ -13,7 +13,7 @@ public class UserService {
     // kafka
     // 유저 이벤트 받기: 유저 추가
     public User postUser(SignedUp signedUp){
-        User user = new User(signedUp.getUserId(), signedUp.getNickname());
+        User user = new User(signedUp.getUserId(), signedUp.getUserNickname(), signedUp.getUserName());
         User savedUser = userRepository.save(user);
         return savedUser;
     }
