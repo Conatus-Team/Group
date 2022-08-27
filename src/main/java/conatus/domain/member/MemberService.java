@@ -26,22 +26,22 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Member save(JoinDto joinDto)
+    public Member save(Long userId, Long groupId)
     {
-
         // 이미 있는 멤버인지
-        Optional<Member> existMember = memberRepository.findByGroupIdAndUserId(joinDto.getGroupId(), joinDto.getUserId());
+        Optional<Member> existMember = memberRepository.findByGroupIdAndUserId(groupId, userId);
         if (existMember.isPresent()){
-            return existMember.get();
+//            return existMember.get();
+            return null;
         }
         
         // 유저 찾기
-        User user = userRepository.findByUserId(joinDto.getUserId());
+        User user = userRepository.findByUserId(userId);
         // 멤버 오브젝트 만들기
-        Member memberObj = new Member(joinDto.getGroupId(), joinDto.getUserId(), user.getNickname(), Boolean.FALSE);
+        Member memberObj = new Member(groupId, userId, user.getNickname(), Boolean.FALSE);
 
         // 그룹 member 개수 올리기
-        Info infoObj = infoRepository.findById(joinDto.getGroupId()).get();
+        Info infoObj = infoRepository.findById(groupId).get();
         infoObj.setMemberCount(infoObj.getMemberCount() + 1);
         infoRepository.save(infoObj);
 
