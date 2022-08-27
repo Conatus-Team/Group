@@ -21,15 +21,15 @@ public class InfoController {
     private final InfoService infoService;
 
     @ApiOperation(value = "그룹 디테일")
-    @GetMapping("/{id}")
-    public InfoDto getById(@PathVariable Long id) {
-        return infoService.getById(id);
+    @GetMapping("/{groupId}")
+    public InfoDto getById(@RequestHeader(value="Authorization") Long userId, @PathVariable Long groupId) {
+        return infoService.getById(userId, groupId);
     }
 
     @ApiOperation(value = "그룹 검색")
     @PostMapping("/search")
-    public List<InfoDto> searchInfo(String keyword) {
-        return infoService.search(keyword);
+    public List<InfoDto> searchInfo(@RequestHeader(value="Authorization") Long userId, @RequestParam("keyword") String keyword) {
+        return infoService.search(userId, keyword);
     }
 
     @ApiOperation(value = "그룹 생성")

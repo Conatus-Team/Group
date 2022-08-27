@@ -1,25 +1,25 @@
 package conatus.domain.history;
 
+import conatus.domain.info.InfoRepository;
+import conatus.domain.info.InfoService;
+import conatus.domain.info.dto.InfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
+@RequestMapping(value = "/group")
+@Transactional
 public class HistoryController {
+    private final HistoryService historyService;
 
-//    private final PostsService postsService;
-//
-//    @PostMapping("/api/v1/posts")
-//    public Long save(@RequestBody PostsSaveRequestDto requestDto){
-//        return postsService.save(requestDto);
-//    }
-//
-//    @PutMapping("/api/v1/posts/{id}")
-//    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto){
-//        return postsService.update(id, requestDto);
-//    }
-//    @GetMapping("/api/v1/posts/{id}")
-//    public PostsResponseDto findById(@PathVariable Long id){
-//        return postsService.findById(id);
-//    }
+    @GetMapping("/send")
+    public void sendToRecommendSystem() {
+        historyService.publishEvent();
+    }
+
+
 }
