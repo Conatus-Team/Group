@@ -13,6 +13,8 @@ import conatus.domain.member.MemberRepository;
 import conatus.domain.member.MemberService;
 import conatus.domain.member.dto.JoinDto;
 import conatus.domain.member.event.GroupJoined;
+import conatus.domain.recommend.Recommend;
+import conatus.domain.recommend.RecommendService;
 import conatus.domain.recommend.event.GroupRecommended;
 import conatus.domain.user.User;
 import conatus.domain.user.UserService;
@@ -31,6 +33,7 @@ public class PolicyHandler {
 
     public final UserService userService;
     public final MemberService memberService;
+    public final RecommendService recommendService;
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
@@ -47,30 +50,23 @@ public class PolicyHandler {
 
     }
 
-//    // 유저 그룹 가입 이벤트 발행
-//    // 유저 그룹 채팅방 가입
-//    @StreamListener(KafkaProcessor.INPUT)
-//    public void postUserChattingRoom(@Payload GroupJoined groupJoined) {
-//        if (!groupJoined.validate()) throw new RuntimeException();
-//        JoinDto joinDto = new JoinDto(groupJoined.getGroupId(), groupJoined.getUserId());
-//        memberService.save(joinDto);
-//
-//    }
-//
-//    @StreamListener(KafkaProcessor.INPUT)
-//    public void wheneverGroupRecommended_UpdateRecommendedGroup(
-//            @Payload GroupRecommended groupRecommended
-//    ) {
-//        if (!groupRecommended.validate()) return;
-//        GroupRecommended event = groupRecommended;
-//        System.out.println(
-//                "\n\n##### listener UpdateRecommendedGroup : " +
-//                        groupRecommended.toJson() +
-//                        "\n\n"
-//        );
-//
-//
-//    }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverGroupRecommended_UpdateRecommendedGroup(
+            @Payload GroupRecommended groupRecommended
+    ) {
+        if (!groupRecommended.validate()) return;
+
+        Recommend newRecommendGroup = recommendService.postRecommend(
+                groupRecommended.getGroupId(),
+                groupRecommended.getUserId()
+        );
+
+        System.out.println("추천 그룹 저장 성공!");
+        System.out.println(newRecommendGroup);
+
+
+    }
 
 
 }

@@ -1,8 +1,12 @@
 package conatus.domain.recommend;
 
+import conatus.domain.info.Info;
+import conatus.domain.info.InfoService;
 import conatus.domain.info.dto.InfoDto;
 import conatus.domain.recommend.event.GroupRecommended;
 import conatus.domain.recommend.event.GroupRecommendedList;
+import conatus.domain.user.User;
+import conatus.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -14,7 +18,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class RecommendService {
+
+
 	private final RecommendRepository recommendRepository;
+	private final InfoService infoService;
+	private final UserService userService;
 
 	// kafka
 	// 추천받은 그룹(단일) 저장
@@ -39,4 +47,14 @@ public class RecommendService {
 		return info;
 
 	}
+
+	// DB에 추천 그룹 저장하기
+	public Recommend postRecommend(Long groupId, Long userId){
+		Info newGroup = infoService.getGroup(groupId);
+
+		Recommend recommend = new Recommend(userId, newGroup);
+		return recommendRepository.save(recommend);
+
+	}
+
 }
