@@ -50,7 +50,7 @@ public class AbstractEvent {
             KafkaProcessor processor = GroupApplication.applicationContext.getBean(
                 KafkaProcessor.class
             );
-            MessageChannel outputChannel = processor.outboundTopic();
+            MessageChannel outputChannel = processor.outputChannel();
 
             outputChannel.send(
                 MessageBuilder

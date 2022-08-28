@@ -31,6 +31,7 @@ public class InfoService {
     private final InfoRepository infoRepository;
     private final MemberRepository memberRepository;
 
+    // 그룹 디테일보기
     @Transactional
     public InfoDto getById(Long userId, Long groupId)
     {
@@ -76,6 +77,7 @@ public class InfoService {
         return result;
     }
 
+    // 그룹 생성
     @Transactional
     public InfoDto create(Long userId, CreateGroupDto createGroupDto){
         User user = userRepository.findByUserId(userId);
@@ -106,6 +108,7 @@ public class InfoService {
 
     }
 
+    // 내가 속한 그룹 보기
     @Transactional
     public List<Info> getGroupByUserId(Long userId){
         List<Member> member = memberRepository.findByUserId(userId);
@@ -116,6 +119,9 @@ public class InfoService {
         return infoList;
     }
 
-
+    // groupId에 해당하는 그룹 리턴
+    public Info getGroup(Long groupId){
+        return infoRepository.findById(groupId).get();
+    }
 
 }
