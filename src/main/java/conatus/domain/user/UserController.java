@@ -1,6 +1,8 @@
 package conatus.domain.user;
 
+import conatus.domain.user.event.SignedUp;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 //    private final PostsService postsService;
-//
 //    @PostMapping("/api/v1/posts")
 //    public Long save(@RequestBody PostsSaveRequestDto requestDto){
 //        return postsService.save(requestDto);

@@ -1,13 +1,19 @@
 package conatus.domain.history;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import conatus.domain.PostMiddleService;
 import conatus.domain.history.event.GroupDetailShown;
 import conatus.domain.history.event.GroupSearched;
 import conatus.domain.history.event.PostAccessCounted;
+import conatus.domain.member.event.GroupJoined;
 import conatus.domain.user.User;
 import conatus.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +25,7 @@ public class HistoryService {
     private final UserRepository userRepository;
     private final SentHistoryRepository sentHistoryRepository;
 
+    private final PostMiddleService postMiddleService;
 
 
     // kafka 이벤트 발송
@@ -43,6 +50,7 @@ public class HistoryService {
                 GroupDetailShown groupDetailShown = new GroupDetailShown(history.getId(), history.getUserId(), history.getGroupId(), history.getCategory());
 //                groupDetailShown.publishAfterCommit();
                 groupDetailShown.publish();
+                postMiddleService.sendTo("http://localhost:8082/middle/GroupDetailShown", groupDetailShown);
             }
             else if (history.getGroupId() != 0 && history.getPostId() != 0){
                 System.out.println("====================================================");
@@ -53,6 +61,7 @@ public class HistoryService {
                 PostAccessCounted postAccessCounted = new PostAccessCounted(history.getId(), history.getGroupId(), history.getUserId(),history.getCount());
 //                postAccessCounted.publishAfterCommit();
                 postAccessCounted.publish();
+                postMiddleService.sendTo("http://localhost:8082/middle/PostAccessCounted", postAccessCounted);
             }
             else if (history.getKeyword() != ""){
                 System.out.println("====================================================");
@@ -63,6 +72,8 @@ public class HistoryService {
                 GroupSearched groupSearched = new GroupSearched(history.getId(), history.getUserId(),history.getKeyword());
 //                groupSearched.publishAfterCommit();
                 groupSearched.publish();
+                postMiddleService.sendTo("http://localhost:8082/middle/GroupSearched", groupSearched);
+
             }
 
             // 어디까지 보냈는지 기록
@@ -72,6 +83,9 @@ public class HistoryService {
 
         }
     }
+
+
+
 
     // 전체 history 데이터
     public void publishAll(){

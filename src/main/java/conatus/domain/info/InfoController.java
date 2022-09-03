@@ -1,15 +1,20 @@
 package conatus.domain.info;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import conatus.domain.info.dto.CreateGroupDto;
 import conatus.domain.info.dto.InfoDto;
+import conatus.domain.member.event.GroupJoined;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,7 +34,8 @@ public class InfoController {
     @ApiOperation(value = "그룹 검색")
     @PostMapping("/search")
     public List<InfoDto> searchInfo(@RequestHeader(value="Authorization") Long userId, @RequestParam("keyword") String keyword) {
-        return infoService.search(userId, keyword);
+        List<InfoDto> results = infoService.search(userId, keyword);
+        return results;
     }
 
     @ApiOperation(value = "그룹 생성")
