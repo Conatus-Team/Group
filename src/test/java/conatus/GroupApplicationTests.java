@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import conatus.domain.history.History;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 //@Autowired 있는 애들만 주입 (기본 값)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ANNOTATED)
 @SpringBootTest
+@Slf4j
 //@RequiredArgsConstructor
 class GroupApplicationTests {
 
@@ -73,9 +75,16 @@ class GroupApplicationTests {
 	}
 
 
+
 	@Test
 	public void history(){
 		historyService.publishAll();
+	}
+
+
+	@Test
+	public void logTest() {
+		log.info("hello");
 	}
 
 //	@Test
