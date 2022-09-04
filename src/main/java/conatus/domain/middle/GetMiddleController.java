@@ -1,4 +1,4 @@
-package conatus.domain;
+package conatus.domain.middle;
 
 import conatus.domain.member.MemberService;
 import conatus.domain.recommend.Recommend;

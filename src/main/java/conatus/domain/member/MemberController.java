@@ -1,18 +1,14 @@
 package conatus.domain.member;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import conatus.domain.PostMiddleService;
-import conatus.domain.member.dto.JoinDto;
+import conatus.domain.middle.PostMiddleService;
 import conatus.domain.member.event.GroupJoined;
+import conatus.domain.middle.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,7 +34,7 @@ public class MemberController {
         groupJoined.publish();
 
         // Middle 서버로 http request
-        postMiddleService.sendTo("http://localhost:8082/middle/GroupJoined", groupJoined);
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/GroupJoined", groupJoined);
 
 
         // 존재하지 않는 유저. 그룹 가입.
