@@ -1,4 +1,4 @@
-package conatus.domain;
+package conatus.domain.middle;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
