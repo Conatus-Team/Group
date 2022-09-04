@@ -12,7 +12,7 @@ public enum Url {
     LECTURE(BASE.getUrl() + "8084" + "/lecture/connect_middle"),
     GROUP(BASE.getUrl() + "8083" + "/group/connect_middle"),
     CHATTING(BASE.getUrl() + "8085" + "/chatting/connect_middle"),
-    RECOMMEND(BASE.getUrl() + "80856" + "/recommend/connect_middle"),
+    RECOMMEND(BASE.getUrl() + "8086" + "/recommend/connect_middle"),
     MIDDLE(BASE.getUrl() + "8082" + "/middle");
 
 
