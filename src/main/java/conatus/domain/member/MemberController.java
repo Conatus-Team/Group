@@ -1,8 +1,11 @@
 package conatus.domain.member;
 
-import conatus.domain.member.dto.JoinDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import conatus.domain.middle.PostMiddleService;
 import conatus.domain.member.event.GroupJoined;
+import conatus.domain.middle.Url;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -11,12 +14,13 @@ import javax.transaction.Transactional;
 @RestController
 @RequestMapping(value = "/group")
 @Transactional
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
-
+    private final PostMiddleService postMiddleService;
     @PostMapping("/join/{groupId}")
     public boolean save(@RequestHeader(value="Authorization") Long userId,
-                       @PathVariable Long groupId){
+                       @PathVariable Long groupId) throws JsonProcessingException {
 
         Member member = memberService.save(userId, groupId);
         if(member == null) {
@@ -29,6 +33,11 @@ public class MemberController {
         GroupJoined groupJoined = new GroupJoined(member);
         groupJoined.publish();
 
+        // Middle 서버로 http request
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/GroupJoined", groupJoined);
+
+
+        // 존재하지 않는 유저. 그룹 가입.
         return false;
 
     }
