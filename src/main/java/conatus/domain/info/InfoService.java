@@ -9,6 +9,8 @@ import conatus.domain.like.LikeRepository;
 import conatus.domain.like.dto.LikeDto;
 import conatus.domain.member.Member;
 import conatus.domain.member.MemberRepository;
+import conatus.domain.posts.Posts;
+import conatus.domain.posts.PostsRepository;
 import conatus.domain.user.User;
 import conatus.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class InfoService {
     private final HistoryRepository historyRepository;
     private final InfoRepository infoRepository;
     private final MemberRepository memberRepository;
+    private final PostsRepository postsRepository;
 
     // 그룹 디테일보기
     @Transactional
@@ -100,7 +103,15 @@ public class InfoService {
                 .nickname(user.getNickname())
                 .build();
 
+        Posts posts = Posts.builder()
+                .groupId(savedInfo.getId())
+                .author(user.getNickname())
+                .title(savedInfo.getName()+"에서 즐거운 시간 보내시길 바랍니다")
+                .content(" ")
+                .userId(userId)
+                .build();
         memberRepository.save(member);
+        postsRepository.save(posts);
 
         InfoDto infoDto = new InfoDto(savedInfo);
 
