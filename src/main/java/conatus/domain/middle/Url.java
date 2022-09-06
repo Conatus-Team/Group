@@ -17,12 +17,12 @@ public enum Url {
 //    MIDDLE(BASE.getUrl() + "8082" + "/middle");
 
     // Release
-    AUTH("auth-backend-svc.moine.svc.cluster.local" + "/auth/connect_middle"),
-    LECTURE("lecture-backend-svc.moine.svc.cluster.local" + "/lecture/connect_middle"),
-    GROUP("group-backend-svc.moine.svc.cluster.local" + "/group/connect_middle"),
-    CHATTING("chatting-backend-svc.moine.svc.cluster.local" + "/chatting/connect_middle"),
-    RECOMMEND("recommend-backend-svc.moine.svc.cluster.local" + "/recommend/connect_middle"),
-    MIDDLE("middle-backend-svc.moine.svc.cluster.local" + "/middle");
+    AUTH("http://auth-backend-svc.moine.svc.cluster.local" + "/auth/connect_middle"),
+    LECTURE("http://lecture-backend-svc.moine.svc.cluster.local" + "/lecture/connect_middle"),
+    GROUP("http://group-backend-svc.moine.svc.cluster.local" + "/group/connect_middle"),
+    CHATTING("http://chatting-backend-svc.moine.svc.cluster.local" + "/chatting/connect_middle"),
+    RECOMMEND("http://recommend-backend-svc.moine.svc.cluster.local" + "/recommend/connect_middle"),
+    MIDDLE("http://middle-backend-svc.moine.svc.cluster.local" + "/middle");
 
 
     private final String url;

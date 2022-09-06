@@ -16,7 +16,7 @@ spring:
   datasource:
     url: jdbc:mysql://moine.ctmozwzrav97.ap-northeast-2.rds.amazonaws.com:3306/Group?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: Moine18!
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   kafka:
     bootstrap-servers: localhost:9092
