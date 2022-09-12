@@ -8,7 +8,10 @@ import javax.transaction.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import conatus.domain.info.dto.CreateGroupDto;
 import conatus.domain.info.dto.InfoDto;
+import conatus.domain.info.event.GroupCreated;
 import conatus.domain.member.event.GroupJoined;
+import conatus.domain.middle.PostMiddleService;
+import conatus.domain.middle.Url;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class InfoController {
 
     private final InfoRepository groupRepository;
     private final InfoService infoService;
+    private final PostMiddleService postMiddleService;
 
     @ApiOperation(value = "그룹 디테일")
     @GetMapping("/{groupId}")
@@ -42,8 +46,22 @@ public class InfoController {
     @PostMapping("/create")
     public InfoDto create(@RequestHeader(value="Authorization") Long userId,
                                  @RequestBody CreateGroupDto createGroupDto) {
+            InfoDto newInfo = infoService.create(userId, createGroupDto);
 
-            return infoService.create(userId, createGroupDto);
+            // 채팅방 생성하기
+            // Middle 서버로 http request
+            GroupCreated groupCreated = new GroupCreated(
+                    newInfo.getGroupId(),
+                    newInfo.getLeaderId(),
+                    newInfo.getCategory(),
+                    newInfo.getName()
+            );
+            postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/GroupCreated", groupCreated);
+
+
+            return newInfo;
+
+
 
     }
 
