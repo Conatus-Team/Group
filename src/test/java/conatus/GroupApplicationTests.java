@@ -71,7 +71,10 @@ class GroupApplicationTests {
 //	private MockMvc mockMvc;
 //
 //	ObjectMapper mapper = new ObjectMapper();
-	@Test
+
+
+	
+//	@Test
 	public void infoCreateTest() throws Exception{
 
 //		CreateGroupDto dto = new CreateGroupDto();
