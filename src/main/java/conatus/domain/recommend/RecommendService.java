@@ -1,8 +1,11 @@
 package conatus.domain.recommend;
 
 import conatus.domain.info.Info;
+import conatus.domain.info.InfoRepository;
 import conatus.domain.info.InfoService;
 import conatus.domain.info.dto.InfoDto;
+import conatus.domain.recommend.dto.RecommendedItemDto;
+import conatus.domain.recommend.dto.RecommendedItemListDto;
 import conatus.domain.recommend.event.GroupRecommended;
 import conatus.domain.recommend.event.GroupRecommendedList;
 import conatus.domain.user.User;
@@ -21,20 +24,37 @@ public class RecommendService {
 
 
 	private final RecommendRepository recommendRepository;
+	private final InfoRepository infoRepository;
 	private final InfoService infoService;
 	private final UserService userService;
 
 	// kafka
 	// 추천받은 그룹(단일) 저장
-	public Recommend updateRecommendedGroup(GroupRecommended groupRecommended) {
+	public Recommend updateRecommendedGroupKafka(GroupRecommended groupRecommended) {
 		return recommendRepository.save(groupRecommended.toEntity());
 	}
 
 	// kafka
 	// 추천받은 그룹 리스트 저장
-	public void updateRecommendedGroupList(GroupRecommendedList groupRecommendedList) {
+	public void updateRecommendedGroupListKafka(GroupRecommendedList groupRecommendedList) {
 		groupRecommendedList.getGroupRecommendedList().stream().map(x -> recommendRepository.save(x.toEntity()));
+		System.out.println("=============================");
+		System.out.println("========== saved ============");
+		System.out.println("=============================");
+	}
 
+
+	// 추천받은 그룹 리스트 저장
+	public void saveRecommendedGroupList(RecommendedItemListDto recommendedItemListDto) {
+		List<RecommendedItemDto> data = recommendedItemListDto.getData();
+		for (RecommendedItemDto item: data
+			 ) {
+			Recommend recommend = Recommend.builder()
+					.userId(item.getUserId())
+					.info(infoRepository.findById(item.getGroupId()).get())
+					.build();
+			recommendRepository.save(recommend);
+		}
 	}
 
 	// 추천받은 그룹 리스트 보여주기
