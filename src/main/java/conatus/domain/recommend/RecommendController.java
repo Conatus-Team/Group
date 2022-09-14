@@ -28,11 +28,9 @@ public class RecommendController {
     }
 
     @PostMapping("/group/recommend")
-    public RecommendedItemListDto getByUserId(@RequestBody RecommendedItemListDto dto ){
-        System.out.println(dto);
-        System.out.println(dto.toString());
+    public String getByUserId(@RequestBody RecommendedItemListDto dto ){
         recommendService.saveRecommendedGroupList(dto);
-        return dto;
+        return dto.toString();
     }
 //    @GetMapping("/api/v1/posts/{id}")
 //    public PostsResponseDto findById(@PathVariable Long id){
